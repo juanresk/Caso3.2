@@ -32,7 +32,7 @@ public class ServidorUDP {
     }
     
     public static void main(String[] args) throws Exception {
-        ServidorUDP client = new ServidorUDP(7077);
+        ServidorUDP client = new ServidorUDP(Integer.parseInt(args[0]));
         client.listen();
     }
 }
