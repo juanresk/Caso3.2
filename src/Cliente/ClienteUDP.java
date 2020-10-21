@@ -18,7 +18,7 @@ public class ClienteUDP {
         scanner = new Scanner(System.in);
     }
     public static void main(String[] args) throws NumberFormatException, IOException {        
-        ClienteUDP sender = new ClienteUDP("localhost", 7077);
+        ClienteUDP sender = new ClienteUDP("192.168.0.22", 7077);
         System.out.println("-- Running UDP Client at " + InetAddress.getLocalHost() + " --");
         sender.start();
     }
