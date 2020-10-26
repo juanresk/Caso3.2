@@ -1,8 +1,11 @@
 import socket
 import struct
 import sys
+import numpy as np
+import cv2
 
 multicast_group = "224.3.29.71"
+#multicast_group = "127.0.0.1"
 #se pone vacio porque solo vamos a escuchar el multicast. Porque es la que tiene configurada la maquina.
 server_address = ('', 10000)
 newChannelPort = 10000
@@ -25,6 +28,7 @@ i = 0
 #Cuando recibamos el nuevo puerto esto se cambia a True para que laescucha del programa 
 #se dedique a recibir el video y no comando por comando cual protocolo
 readyRecieveVideo = False
+s=b""
 while True:
     if not readyRecieveVideo:
         if i == 0: print("\nWaiting to receive channel info")
@@ -44,9 +48,15 @@ while True:
             group = socket.inet_aton(multicast_group)
             mreq = struct.pack('4sL', group, socket.INADDR_ANY)
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
-            readyRecieveVideo = True  
+            readyRecieveVideo = True
     else:
-        data, address = sock.recvfrom(1024)
-        print("\nNew Message from streaming channel:\n%s"%data.decode("ascii"))
-        print("READY TO RECEIVE VIDEO")
-        break
+        data, address = sock.recvfrom(46080)
+        s += data
+        size = 46080*20
+        if len(s) == size:
+            frame = np.frombuffer(s, dtype = np.uint8)
+            frame = frame.reshape(480,640,3)
+            cv2.imshow('frame', frame)
+            s = b""
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
