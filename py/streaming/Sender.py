@@ -5,7 +5,7 @@ import threading
 import cv2
 import time
 
-message = "Elija el canal al que se quiere conectar. \n1. WEBCAM \n2. WARZONE \n3. TECNOLOGIA"
+message = "Elija el canal al que se quiere conectar. \n1. iPhone 12 \n2. WARZONE \n3. TECNOLOGIA"
 lobby_multicast_group = ("224.3.29.71", 10000)
 
 def multicastSelector(numCanal):
