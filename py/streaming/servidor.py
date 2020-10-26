@@ -14,7 +14,7 @@ PRIMER_PUERTO = 49152
 ultima_ipmulticast = '224.3.0.0'
 ultimo_puertomulticast = 49152
 RUTA_VIDEO = '/'
-formato_nombre_archivo = 'drone${}.mp4'
+formato_nombre_archivo = 'cod${}.mp4'
 nombre_archivo_actual = 0
 
 
