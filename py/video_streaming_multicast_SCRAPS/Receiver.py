@@ -26,21 +26,27 @@ i = 0
 #se dedique a recibir el video y no comando por comando cual protocolo
 readyRecieveVideo = False
 while True:
-    print("\nWaiting to receive channel info")
-    data, address = sock.recvfrom(1024)
-    print("Received %s from %s" % (data, address))
-    dataS = data.decode("ascii")
-    if "PORT" in dataS:
-        newChannelPort = int(dataS.split("#")[1])
-        new_server_address = ('', newChannelPort)
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.bind(new_server_address)
-        group = socket.inet_aton(multicast_group)
-        mreq = struct.pack('4sL', group, socket.INADDR_ANY)
-        sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
-        readyRecieveVideo = True  
-    if i == 0:
-        eleccion = input("Enter selection: ")
-        msgEleccion = 'SELECT#%s' % eleccion
-        sock.sendto(msgEleccion.encode("ascii"), address)
-        i = i + 1
+    if not readyRecieveVideo:
+        if i == 0: print("\nWaiting to receive channel info")
+        data, address = sock.recvfrom(1024)
+        dataS = data.decode("ascii")
+        if i == 0:
+            print("MENU:\n%s\nServer: %s\n" % (dataS, address))
+            eleccion = input("Enter selection: ")
+            msgEleccion = 'SELECT#%s' % eleccion
+            sock.sendto(msgEleccion.encode("ascii"), address)
+            i = i + 1
+        if "PORT" in dataS:
+            newChannelPort = int(dataS.split("#")[1])
+            new_server_address = ('', newChannelPort)
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.bind(new_server_address)
+            group = socket.inet_aton(multicast_group)
+            mreq = struct.pack('4sL', group, socket.INADDR_ANY)
+            sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+            readyRecieveVideo = True  
+    else:
+        data, address = sock.recvfrom(1024)
+        print("\nNew Message from streaming channel:\n%s"%data.decode("ascii"))
+        print("READY TO RECEIVE VIDEO")
+        break
