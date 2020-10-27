@@ -12,7 +12,7 @@ def main():
     #Arreglo con las conexiones que se unan al servidor
     connections = []
     #IP donde corre el servidor
-    host='localhost'
+    host='0.0.0.0'
     #Puerto donde corre el servidor
     port=8080
     #Configuracion del socket del servidor. Se usa datagram para UDP y enviar los archivos

@@ -16,7 +16,7 @@ hashMensaje=hashlib.sha256()
 
 
 # la ip donde está corrriendo el servidor localhost = 127.0.0.1
-host = 'localhost'
+host = '192.168.0.23'
 #puerto de conexión del socket. En este caso es el puerto donde corre el servidor.
 port=8080
 
