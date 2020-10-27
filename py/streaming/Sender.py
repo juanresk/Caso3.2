@@ -40,10 +40,14 @@ def canal(numCanal):
             success, image = video.read()
             if not success:
                 break
-            ret, jpeg = cv2.imencode('.jpg', image)
+            ret, jpeg = cv2.imencode('.jpeg', image)
             if not ret:
                 break
-            soc.sendto(jpeg.tobytes(), new_multicast_group)
+            #print('Envio del canal '+str(numCanal))
+            # if numCanal == 1:
+            #     print('Tamaño de buffer '+str(sys.getsizeof(jpeg.tobytes())))
+            if sys.getsizeof(jpeg.tobytes()) < 65535:
+                soc.sendto(jpeg.tobytes(), new_multicast_group)
             time.sleep(0.05)
 
 #Creamos un socket diagram
