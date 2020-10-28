@@ -59,7 +59,7 @@ def start_thread(s,adrr):
         while True:
             data=f.read(buffersize)
             if not data:
-                print ("termine de leer")
+                print ("ya termine de leer el archivo")
                 #en este punto es necesario enviar el hash al cliente
                 h=str(hashSha.hexdigest())
                 print("Hash a enviar: "+h)

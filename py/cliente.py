@@ -16,7 +16,7 @@ hashMensaje=hashlib.sha256()
 
 
 # la ip donde está corrriendo el servidor localhost = 127.0.0.1
-host = '192.168.0.23'
+host = 'localhost'
 #puerto de conexión del socket. En este caso es el puerto donde corre el servidor.
 port=8080
 
@@ -66,7 +66,7 @@ while True:
     hashMensaje.update(data)
     num_paquetes+=1
 finalTime = time.time() - start_time
-logging.info("CLIENTE Tiempo del envio %s" % finalTime)
+logging.info("CLIENTE Tiempo de envio %s" % finalTime)
 logging.info("---------------------------------------------")
 
 UDPClientSocket.close()
